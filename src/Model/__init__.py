@@ -1,6 +1,9 @@
+import os
 from peewee import SqliteDatabase, Model # type: ignore
 
-db = SqliteDatabase(".\Model\Database\English.db")
+path =  os.getcwd() + "\\src\\Model\\Database\\English.db"
+
+db = SqliteDatabase(path)
 
 class base(Model):
     class Meta:
