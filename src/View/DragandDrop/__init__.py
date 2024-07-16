@@ -1,6 +1,6 @@
 import tkinter as tk
 import random
-from MainWindow import Form
+from ..MainWindow import Form
 
 class DragDropHandler(tk.Label):
     text : str
@@ -84,16 +84,23 @@ class DragDropHandler(tk.Label):
     def drag_end(self, e):
         x1, y1, x2, y2 = self.canvas.coords(self.drop_zone)
 
-        label_x, label_y = self.canvas.coords(self.labelSave)
-        label_width = self.winfo_width()
-        label_height = self.winfo_height()
-        label_center_x = label_x + label_width / 2
-        label_center_y = label_y + label_height / 2
 
-        if x1 <= label_center_x <= x2 and y1 <= label_center_y <= y2:
+        x , y  = self.actPos
+
+        if x1 <= x <= x2 and y1 <= y <= y2:
             print("Drop válido en la zona especificada.")
         else:
             print("El drop no está en la zona especificada. Regresando al inicio.")
             self.canvas.coords(self.drag_data['item'], self.pos[0], self.pos[1])
         
         self.drag_data['item'] = None
+
+    @property
+    def actPos(self) -> tuple:
+        label_x, label_y = self.canvas.coords(self.labelSave)
+        label_width = self.winfo_width()
+        label_height = self.winfo_height()
+        label_center_x = label_x + label_width / 2
+        label_center_y = label_y + label_height / 2
+
+        return  (label_center_x,  label_center_y)

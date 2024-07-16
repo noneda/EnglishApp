@@ -1,2 +1,5 @@
+from .View import Main
+
 if __name__ == "__main__":
-    pass
+    master = Main()
+    master.mainloop()

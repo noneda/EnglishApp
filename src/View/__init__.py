@@ -1,10 +1,13 @@
 import tkinter as tk
-from MainWindow import Form
-from DragandDrop import DragDropHandler
+from .MainWindow import Form
+from .DragandDrop import DragDropHandler
+from ..Controller.GetOration import Oration
+
 
 class Main(tk.Tk):
     form: Form
     labels: dict 
+    dropZone : tk.Canvas.create_rectangle
 
     @staticmethod
     def configs(cls: tk.Tk):
@@ -15,7 +18,7 @@ class Main(tk.Tk):
     def __init__(self):
         super().__init__()
         self.configs(self)
-        dropZone = self.form.create_rectangle(
+        self.dropZone = self.form.create_rectangle(
             50,
             50,
             450,
@@ -28,7 +31,7 @@ class Main(tk.Tk):
                 master=self,
                 txt=f"TouchMe {i}",
                 canva=self.form,
-                dropZone=dropZone,
+                dropZone=self.dropZone,
                 pos = (pos_x, pos_y)
             )
             self.labels[f"label{i}"] = label  
@@ -38,7 +41,20 @@ class Main(tk.Tk):
                 pos_y += 50
             print("x " + str(pos_x) + " y " + str(pos_y))
 
-if __name__ == "__main__":
-    master = Main()
-    master.mainloop()
+        self.generate_button = tk.Button(self, text="Generar Oración", command=self.display_sentence)
+        self.generate_button.pack(pady=20)
+
+    def display_sentence(self):
+        obj = Oration()
+        sentence = obj.OrdenBySentences( 
+            drop_zone= self.form.coords(self.dropZone), 
+            labels= self.labels
+            )
+        new_window = tk.Toplevel(self)
+        new_window.title("Generated Sentence")
+        label = tk.Label(new_window, text=sentence, wraplength=400, padx=20, pady=20)
+        label.pack()
+
+
+    
 
