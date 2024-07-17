@@ -1,19 +1,14 @@
 import tkinter as tk
-from .MainWindow import Form
-from .DragandDrop import DragDropHandler
+from Frames import SolveFrame
+from MainWindow import Form
+from DragandDrop import DragDropHandler
 from Controller.GetOration import Oration
 
 
-class Main(tk.Tk):
+class Dou(SolveFrame):
     form: Form
     labels: dict 
     dropZone : tk.Canvas.create_rectangle
-
-    @staticmethod
-    def configs(cls: tk.Tk):
-        cls.title("Doulingo for poor")
-        cls.form = Form(cls)
-        cls.form.pack()
 
     def __init__(self):
         super().__init__()
@@ -54,7 +49,3 @@ class Main(tk.Tk):
         new_window.title("Generated Sentence")
         label = tk.Label(new_window, text=sentence, wraplength=400, padx=20, pady=20)
         label.pack()
-
-
-    
-

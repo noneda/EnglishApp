@@ -1,7 +1,7 @@
-from ...Model import db
-from ...Model.Answers import Answer
-from ...Model.Questions import Questions
-from ...Model.Type import Type
+from Model import db
+from Model.Answers import Answer
+from Model.Questions import Questions
+from Model.Type import Type
 
 
 class Crud():
